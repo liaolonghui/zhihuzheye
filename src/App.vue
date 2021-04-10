@@ -1,27 +1,60 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="container">
+    <column-list :list="list" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import ColumnList, { ColumnProps } from './components/ColumnList.vue'
+const testData: ColumnProps[] = [
+  {
+    id: 1,
+    avatar: 'https://picsum.photos/id/237/300/300',
+    title: 'aaa',
+    description: 'bbb'
+  },
+  {
+    id: 2,
+    title: 'aaa',
+    description: 'bbb'
+  },
+  {
+    id: 1,
+    avatar: 'https://picsum.photos/id/237/300/300',
+    title: 'aaa',
+    description: 'bbb'
+  },
+  {
+    id: 2,
+    avatar: 'https://picsum.photos/id/300/300/300',
+    title: 'aaa',
+    description: 'bbb'
+  },
+  {
+    id: 1,
+    avatar: 'https://picsum.photos/id/237/300/300',
+    title: 'aaa',
+    description: 'bbb'
+  },
+  {
+    id: 2,
+    avatar: 'https://picsum.photos/id/300/300/300',
+    title: 'aaa',
+    description: 'bbb'
+  }
+]
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    ColumnList
+  },
+  setup () {
+    return {
+      list: testData
+    }
   }
 })
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
