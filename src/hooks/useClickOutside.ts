@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted, Ref } from 'vue'
 
-const useClickOutside = (elementRef: Ref<null | HTMLElement>) => {
+const useClickOutside = (elementRef: Ref<null | HTMLElement>): Ref<boolean> => {
   // 是否点击了传入元素之外的元素（点击传入元素内部的元素也算点击了传入元素）
   const isClickOutside = ref(false)
 
