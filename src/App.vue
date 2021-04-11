@@ -5,7 +5,7 @@
     <form action="">
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" />
+        <validate-input :rules="rules" v-model="emailRef" />
       </div>
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
@@ -68,15 +68,6 @@ const testData: ColumnProps[] = [
   }
 ]
 
-// rules
-const emailRules: RulesType = [{
-  type: 'required',
-  message: '邮箱不能为空'
-}, {
-  type: 'email',
-  message: '请填写正确的邮箱地址'
-}]
-
 export default defineComponent({
   name: 'App',
   components: {
@@ -85,9 +76,23 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
+    const emailRef = ref('')
+    // rules
+    const emailRules: RulesType = [{
+      type: 'required',
+      message: '邮箱不能为空'
+    }, {
+      type: 'email',
+      message: '请填写正确的邮箱地址'
+    }]
+    // 测试一下v-model起效了没
+    watch(emailRef, (newState) => {
+      console.log(newState)
+    })
     return {
       list: testData,
       user: testUser,
+      emailRef,
       rules: emailRules
     }
   }
