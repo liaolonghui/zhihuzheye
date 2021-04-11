@@ -5,11 +5,11 @@
     <form action="">
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" v-model="emailRef" />
+        <validate-input :rules="rules" v-model="emailRef" placeholder="请输入邮箱地址" />
       </div>
       <div class="mb-3">
-        <label class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" />
+        <label class="form-label">日期</label>
+        <validate-input type="date" style="width: 300px;" />
       </div>
     </form>
     <!-- columnList -->

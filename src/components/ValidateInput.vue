@@ -1,6 +1,13 @@
 <template>
   <div class="validate-input-container pb-3">
-    <input type="email" class="form-control" :class="{ 'is-invalid': inputRef.error }" :value="inputRef.val" @input="updateInput" @blur="validateInput">
+    <input
+      v-bind="$attrs"
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="inputRef.val"
+      @input="updateInput"
+      @blur="validateInput"
+    >
     <small class="form-text invalid-feedback" v-if="inputRef.error">{{ inputRef.message }}</small>
   </div>
 </template>
@@ -19,6 +26,7 @@ const emailReg = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9
 
 export default defineComponent({
   name: 'ValidateInput',
+  inheritAttrs: false,
   props: {
     rules: Array as PropType<RulesType>,
     modelValue: String
