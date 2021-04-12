@@ -1,28 +1,33 @@
 <template>
   <div class="container">
+    <!-- header -->
     <global-header :user="user" />
     <!-- form -->
-    <form action="">
+    <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="rules" v-model="emailRef" placeholder="请输入邮箱地址" />
+        <validate-input :rules="emailRules" v-model="emailRef" placeholder="请输入邮箱地址" />
       </div>
       <div class="mb-3">
-        <label class="form-label">日期</label>
-        <validate-input type="date" style="width: 300px;" />
+        <label class="form-label">密码</label>
+        <validate-input :rules="passRules" v-model="passRef" />
       </div>
-    </form>
+      <template #submit>
+        <button class="btn btn-danger">Submit</button>
+      </template>
+    </validate-form>
     <!-- columnList -->
     <column-list :list="list" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import ValidateInput, { RulesType } from './components/ValidateInput.vue'
+import ValidateForm from './components/ValidateForm.vue'
 
 const testUser: UserProps = {
   id: 1,
@@ -73,27 +78,32 @@ export default defineComponent({
   components: {
     ColumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup () {
     const emailRef = ref('')
     // rules
-    const emailRules: RulesType = [{
-      type: 'required',
-      message: '邮箱不能为空'
-    }, {
-      type: 'email',
-      message: '请填写正确的邮箱地址'
-    }]
-    // 测试一下v-model起效了没
-    watch(emailRef, (newState) => {
-      console.log(newState)
-    })
+    const emailRules: RulesType = [
+      { type: 'required', message: '邮箱不能为空' },
+      { type: 'email', message: '请填写正确的邮箱地址' }
+    ]
+    const passRef = ref('')
+    const passRules: RulesType = [
+      { type: 'required', message: '密码不能为空' }
+    ]
+    // 提交表单
+    const onFormSubmit = (valid: boolean) => {
+      console.log(valid)
+    }
     return {
       list: testData,
       user: testUser,
       emailRef,
-      rules: emailRules
+      emailRules,
+      passRef,
+      passRules,
+      onFormSubmit
     }
   }
 })

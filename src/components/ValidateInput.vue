@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, onMounted, PropType, reactive } from 'vue'
+import { emitter } from './ValidateForm.vue'
 
 interface RuleType {
   type: 'required' | 'email',
@@ -32,6 +33,9 @@ export default defineComponent({
     modelValue: String
   },
   setup (props, context) {
+    onMounted(() => {
+      emitter.emit('form-item-created', validateInput)
+    })
     const inputRef = reactive({
       val: props.modelValue || '',
       error: false,
@@ -60,6 +64,7 @@ export default defineComponent({
         })
         // 设置错误信息
         inputRef.error = !allPassed // 别忘了取个反
+        return allPassed
       }
     }
     // 更新input
