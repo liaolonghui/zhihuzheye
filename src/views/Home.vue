@@ -4,19 +4,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import ColumnList, { ColumnProps } from '../components/ColumnList.vue'
-
-import { testData } from '../testData' // 测试数据
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import ColumnList from '../components/ColumnList.vue'
 
 export default defineComponent({
-  name: 'ColumnDeatil',
+  name: 'Home',
   components: {
     ColumnList
   },
   setup () {
+    const store = useStore()
+    const list = computed(() => store.state.columns)
     return {
-      list: testData
+      list
     }
   }
 })

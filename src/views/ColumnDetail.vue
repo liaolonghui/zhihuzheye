@@ -15,11 +15,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import PostList from '../components/PostList.vue'
-
-import { testData, testPost } from '../testData' // 测试的数据
 
 export default defineComponent({
   components: {
@@ -27,9 +26,10 @@ export default defineComponent({
   },
   setup () {
     const route = useRoute()
+    const store = useStore()
     const currentId = +route.params.id // 使用+快速转换为number类型
-    const column = testData.find(column => column.id === currentId)
-    const list = testPost.filter(post => post.columnId === currentId)
+    const column = computed(() => store.state.columns.find((column: { id: number }) => column.id === currentId))
+    const list = computed(() => store.state.posts.filter((post: { columnId: number }) => post.columnId === currentId))
     return {
       route,
       column,
