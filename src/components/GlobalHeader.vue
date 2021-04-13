@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
-    <a class="navbar-brand" href="#">之乎者也</a>
+    <router-link class="navbar-brand" to="/">之乎者也</router-link>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item" @click="$router.push('/login')"><a href="#" class="btn btn-outline-light">登录</a></li>
       <li class="list-inline-item"><a href="#" class="btn btn-outline-light">注册</a></li>
@@ -9,7 +9,7 @@
       <li class="list-inline-item">
         <dropdown :title="`你好，${user.name}`">
           <dropdown-item>
-              <a href="#" class="dropdown-item">新增文章</a>
+              <router-link to="/create" class="dropdown-item">新增文章</router-link>
           </dropdown-item>
           <dropdown-item :disabled="true">
               <a href="#" class="dropdown-item">编辑资料</a>

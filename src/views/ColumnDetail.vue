@@ -28,8 +28,8 @@ export default defineComponent({
     const route = useRoute()
     const store = useStore()
     const currentId = +route.params.id // 使用+快速转换为number类型
-    const column = computed(() => store.state.columns.find((column: { id: number }) => column.id === currentId))
-    const list = computed(() => store.state.posts.filter((post: { columnId: number }) => post.columnId === currentId))
+    const column = computed(() => store.getters.getColumnById(currentId))
+    const list = computed(() => store.getters.getListById(currentId))
     return {
       route,
       column,
